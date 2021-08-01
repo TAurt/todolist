@@ -4,6 +4,7 @@ import com.mtx.todolist.entity.Gender;
 import com.mtx.todolist.entity.Role;
 import com.mtx.todolist.entity.User;
 import com.mtx.todolist.util.ConnectionPool;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.sql.*;
@@ -12,8 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
+import static lombok.AccessLevel.PRIVATE;
 
+@NoArgsConstructor(access = PRIVATE)
 public class UserDao implements Dao<Integer, User> {
+
+    private static final UserDao INSTANCE = new UserDao();
 
     private static final String SAVE_SQL = """
             INSERT  INTO users (name, birthday, registered_date, email, password, gender, role, image)
@@ -29,8 +34,7 @@ public class UserDao implements Dao<Integer, User> {
                 gender = ?,
                 role = ?,
                 image = ?
-            WHERE id = ?
-            RETURNING (SELECT * FROM users WHERE id = ?) AS result;
+            WHERE id = ?;
             """;
 
     private static final String DELETE_SQL = """
@@ -118,7 +122,7 @@ public class UserDao implements Dao<Integer, User> {
 
     @SneakyThrows
     @Override
-    public User update(User user) {
+    public void update(User user) {
         try (var connection = ConnectionPool.get();
              var preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
             preparedStatement.setObject(1, user.getName());
@@ -131,11 +135,12 @@ public class UserDao implements Dao<Integer, User> {
             preparedStatement.setObject(8, user.getId());
             preparedStatement.setObject(9, user.getId());
 
-            var resultSet = preparedStatement.executeQuery();
-            user = build(resultSet);
-
-            return user;
+            preparedStatement.executeUpdate();
         }
+    }
+
+    public static UserDao getInstance() {
+        return INSTANCE;
     }
 
     private User build(ResultSet resultSet) throws SQLException {
@@ -149,7 +154,6 @@ public class UserDao implements Dao<Integer, User> {
                 .gender(Gender.find(resultSet.getObject("gender", String.class)).orElse(null))
                 .role(Role.find(resultSet.getObject("role", String.class)).orElse(null))
                 .image(resultSet.getObject("image", String.class))
-                .email(resultSet.getObject("email", String.class))
                 .build();
     }
 }

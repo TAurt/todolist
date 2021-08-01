@@ -27,7 +27,6 @@ public class TaskDao implements Dao<Long, Task>{
     }
 
     @Override
-    public Task update(Task entity) {
-        return null;
+    public void update(Task entity) {
     }
 }

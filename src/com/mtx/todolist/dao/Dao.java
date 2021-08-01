@@ -9,5 +9,5 @@ public interface Dao<K, T> {
     Optional<T> findById(K id);
     boolean delete(K id);
     T save(T entity);
-    T update(T entity);
+    void update(T entity);
 }

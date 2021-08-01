@@ -14,11 +14,11 @@ public class PropertiesUtil {
         loadProperties();
     }
 
-    public static String get(String key) {
+    public String get(String key) {
         return PROPERTIES.getProperty(key);
     }
 
-    private static void loadProperties() {
+    private void loadProperties() {
         try(var inputStream = PropertiesUtil.class.getClassLoader().getResourceAsStream("application.properties")) {
             PROPERTIES.load(inputStream);
         } catch (IOException e) {
