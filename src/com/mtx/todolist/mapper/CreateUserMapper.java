@@ -6,6 +6,7 @@ import com.mtx.todolist.entity.Role;
 import com.mtx.todolist.entity.User;
 import com.mtx.todolist.util.LocalDateFormatter;
 import com.mtx.todolist.util.PasswordUtil;
+import com.mtx.todolist.util.PropertiesUtil;
 import lombok.NoArgsConstructor;
 
 import java.io.File;
@@ -14,9 +15,11 @@ import java.time.LocalDate;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class CreateUserMapper implements Mapper<CreateUserDto, User>{
+public class CreateUserMapper implements Mapper<CreateUserDto, User> {
     private static final CreateUserMapper INSTANCE = new CreateUserMapper();
     private static final String IMAGE_FOLDER = "users";
+    private static final String DEFAULT_MALE_IMAGE = "image.male.default.url";
+    private static final String DEFAULT_FEMALE_IMAGE = "image.female.default.url";
 
     @Override
     public User mapFrom(CreateUserDto createUserDto) {
@@ -28,7 +31,11 @@ public class CreateUserMapper implements Mapper<CreateUserDto, User>{
                 .password(PasswordUtil.encode(createUserDto.getPassword()))
                 .gender(Gender.valueOf(createUserDto.getGender()))
                 .role(Role.valueOf(createUserDto.getRole()))
-                .image(IMAGE_FOLDER + File.separator + createUserDto.getImage().getSubmittedFileName())
+                .image(!createUserDto.getImage().getSubmittedFileName().isEmpty()
+                        ? IMAGE_FOLDER + File.separator + createUserDto.getImage().getSubmittedFileName()
+                        : Gender.MALE.name().equals(createUserDto.getGender())
+                        ? PropertiesUtil.get(DEFAULT_MALE_IMAGE)
+                        : PropertiesUtil.get(DEFAULT_FEMALE_IMAGE))
                 .build();
     }
 

@@ -7,6 +7,7 @@ import com.mtx.todolist.exception.ValidationException;
 import com.mtx.todolist.service.UserService;
 import com.mtx.todolist.util.JspHelper;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024)
 @WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
 
