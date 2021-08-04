@@ -5,6 +5,7 @@ import com.mtx.todolist.dto.CreateUserDto;
 import com.mtx.todolist.exception.ValidationException;
 import com.mtx.todolist.mapper.CreateUserMapper;
 import com.mtx.todolist.validator.CreateUserValidator;
+import com.mtx.todolist.validator.Error;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 
@@ -20,7 +21,13 @@ public class UserService {
 
     @SneakyThrows
     public Integer create(CreateUserDto createUserDto) {
+
         var validationResult = createUserValidator.isValid(createUserDto);
+
+        if (userDao.findByEmail(createUserDto.getEmail()).isPresent()) {
+            validationResult.add(Error.of("email.invalid", "Email is already existing!"));
+        }
+
         if (!validationResult.isValid()) {
             throw new ValidationException(validationResult.getErrors());
         }

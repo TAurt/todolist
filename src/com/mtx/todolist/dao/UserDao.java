@@ -53,6 +53,12 @@ public class UserDao implements Dao<Integer, User> {
             FROM users;
             """;
 
+    private static final String FIND_BY_EMAIL_SQL = """
+            SELECT id, name, birthday, registered_date, email, password, gender, role, image
+            FROM users
+            WHERE email = ?;
+            """;
+
     @SneakyThrows
     @Override
     public List<User> findAll() {
@@ -75,6 +81,22 @@ public class UserDao implements Dao<Integer, User> {
         try (var connection = ConnectionPool.get();
              var preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
             preparedStatement.setObject(1, id);
+
+            var resultSet = preparedStatement.executeQuery();
+            User user = null;
+            if (resultSet.next()) {
+                user = build(resultSet);
+            }
+
+            return Optional.ofNullable(user);
+        }
+    }
+
+    @SneakyThrows
+    public Optional<Object> findByEmail(String email) {
+        try (var connection = ConnectionPool.get();
+             var preparedStatement = connection.prepareStatement(FIND_BY_EMAIL_SQL)){
+            preparedStatement.setObject(1, email);
 
             var resultSet = preparedStatement.executeQuery();
             User user = null;
@@ -133,7 +155,6 @@ public class UserDao implements Dao<Integer, User> {
             preparedStatement.setObject(6, user.getRole().name());
             preparedStatement.setObject(7, user.getImage());
             preparedStatement.setObject(8, user.getId());
-            preparedStatement.setObject(9, user.getId());
 
             preparedStatement.executeUpdate();
         }
