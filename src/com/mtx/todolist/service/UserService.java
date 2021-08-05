@@ -2,12 +2,17 @@ package com.mtx.todolist.service;
 
 import com.mtx.todolist.dao.UserDao;
 import com.mtx.todolist.dto.CreateUserDto;
+import com.mtx.todolist.dto.UserDto;
 import com.mtx.todolist.exception.ValidationException;
 import com.mtx.todolist.mapper.CreateUserMapper;
+import com.mtx.todolist.mapper.UserMapper;
 import com.mtx.todolist.validator.CreateUserValidator;
 import com.mtx.todolist.validator.Error;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class UserService {
@@ -16,6 +21,7 @@ public class UserService {
 
     private final UserDao userDao = UserDao.getInstance();
     private final CreateUserMapper createUserMapper = CreateUserMapper.getInstance();
+    private final UserMapper userMapper = UserMapper.getInstance();
     private final CreateUserValidator createUserValidator = CreateUserValidator.getInstance();
     private final ImageService imageService = ImageService.getInstance();
 
@@ -39,6 +45,12 @@ public class UserService {
         var saveUser = userDao.save(user);
 
         return saveUser.getId();
+    }
+
+    public List<UserDto> getAll() {
+        return userDao.findAll().stream()
+                .map(userMapper::mapFrom)
+                .collect(Collectors.toList());
     }
 
     public static UserService getInstance() {

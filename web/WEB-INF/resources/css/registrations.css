@@ -1,0 +1,71 @@
+body {
+    background-color: grey;
+}
+
+form {
+    background-color: goldenrod;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5%;
+    box-shadow: 5px 5px 5px darksalmon;
+    padding: 20px;
+    height: max-content;
+}
+
+button {
+    display: block;
+    width: 100%;
+    font-size: 30px;
+    background-color: darkred;
+    border: 2px solid black;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px darksalmon;
+}
+
+label {
+    white-space: nowrap;
+    padding: 5px;
+    height: max-content;
+}
+
+input {
+    display: block;
+    margin-top: 2px;
+    width: 100%;
+    outline: none !important;
+}
+
+button {
+    margin-top: 20px;
+    margin-right: 20px;
+}
+.errors {
+    background-color: goldenrod;
+    font-size: 25px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px darksalmon;
+    margin: 50px auto;
+    width: max-content;
+}
+
+.gender {
+    display: inline;
+    width: 10%;
+}
+
+.image {
+    display: inline;
+}
+
+.input {
+    font-size: 20px;
+    padding: 5px;
+}
