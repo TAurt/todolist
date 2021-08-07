@@ -68,6 +68,10 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public boolean delete(Integer id) {
+       return userDao.delete(id);
+    }
+
     public static UserService getInstance() {
         return INSTANCE;
     }
