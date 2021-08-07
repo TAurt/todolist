@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="registration">
+        <h1>Registration</h1>
         <form action="${pageContext.request.contextPath}/registration" method="post" enctype="multipart/form-data">
             <div class="input">
                 <label for="name">Name:

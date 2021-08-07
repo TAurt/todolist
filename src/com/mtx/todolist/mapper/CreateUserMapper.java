@@ -23,20 +23,24 @@ public class CreateUserMapper implements Mapper<CreateUserDto, User> {
 
     @Override
     public User mapFrom(CreateUserDto createUserDto) {
-        return User.builder()
-                .name(createUserDto.getName())
-                .email(createUserDto.getEmail())
-                .birthday(LocalDateFormatter.format(createUserDto.getBirthday()))
-                .registeredDate(LocalDate.now())
-                .password(PasswordUtil.encode(createUserDto.getPassword()))
-                .gender(Gender.valueOf(createUserDto.getGender()))
-                .role(Role.valueOf(createUserDto.getRole()))
-                .image(!createUserDto.getImage().getSubmittedFileName().isEmpty()
-                        ? IMAGE_FOLDER + File.separator + createUserDto.getImage().getSubmittedFileName()
-                        : Gender.MALE.name().equals(createUserDto.getGender())
-                        ? PropertiesUtil.get(DEFAULT_MALE_IMAGE)
-                        : PropertiesUtil.get(DEFAULT_FEMALE_IMAGE))
-                .build();
+        try {
+            return User.builder()
+                    .name(createUserDto.getName())
+                    .email(createUserDto.getEmail())
+                    .birthday(LocalDateFormatter.format(createUserDto.getBirthday()))
+                    .registeredDate(LocalDate.now())
+                    .password(PasswordUtil.getSaltedHash(createUserDto.getPassword()))
+                    .gender(Gender.valueOf(createUserDto.getGender()))
+                    .role(Role.valueOf(createUserDto.getRole()))
+                    .image(!createUserDto.getImage().getSubmittedFileName().isEmpty()
+                            ? IMAGE_FOLDER + File.separator + createUserDto.getImage().getSubmittedFileName()
+                            : Gender.MALE.name().equals(createUserDto.getGender())
+                            ? PropertiesUtil.get(DEFAULT_MALE_IMAGE)
+                            : PropertiesUtil.get(DEFAULT_FEMALE_IMAGE))
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static CreateUserMapper getInstance() {

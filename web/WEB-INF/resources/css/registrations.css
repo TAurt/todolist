@@ -2,6 +2,12 @@ body {
     background-color: grey;
 }
 
+h1 {
+    text-align: center;
+    vertical-align: bottom;
+    margin-bottom: 0;
+}
+
 form {
     background-color: goldenrod;
     margin-top: 10%;
