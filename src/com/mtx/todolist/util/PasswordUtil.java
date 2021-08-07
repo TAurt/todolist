@@ -31,6 +31,8 @@ public class PasswordUtil {
     }
 
     private static String hash(String password, byte[] salt) throws Exception {
+        if (password == null || password.length() == 0)
+            throw new IllegalArgumentException("Empty passwords are not supported.");
         SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         SecretKey key = f.generateSecret(new PBEKeySpec(
                 password.toCharArray(), salt, iterations, desiredKeyLen)

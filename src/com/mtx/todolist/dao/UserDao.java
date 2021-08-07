@@ -93,7 +93,7 @@ public class UserDao implements Dao<Integer, User> {
     }
 
     @SneakyThrows
-    public Optional<Object> findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         try (var connection = ConnectionPool.get();
              var preparedStatement = connection.prepareStatement(FIND_BY_EMAIL_SQL)){
             preparedStatement.setObject(1, email);

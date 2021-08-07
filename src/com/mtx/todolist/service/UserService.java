@@ -12,7 +12,10 @@ import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.mtx.todolist.util.PasswordUtil.check;
 
 @NoArgsConstructor
 public class UserService {
@@ -24,6 +27,18 @@ public class UserService {
     private final UserMapper userMapper = UserMapper.getInstance();
     private final CreateUserValidator createUserValidator = CreateUserValidator.getInstance();
     private final ImageService imageService = ImageService.getInstance();
+
+    @SneakyThrows
+    public Optional<UserDto> login(String email, String password) {
+        var userOptional = userDao.findByEmail(email);
+        if (userOptional.isPresent()) {
+            var user = userOptional.get();
+            if (check(password, user.getPassword())) {
+                return Optional.ofNullable(userMapper.mapFrom(user));
+            }
+        }
+        return Optional.empty();
+    }
 
     @SneakyThrows
     public Integer create(CreateUserDto createUserDto) {
