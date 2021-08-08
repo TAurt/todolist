@@ -1,5 +1,5 @@
 body{
-    background-color: grey;
+    background-color: white;
 }
 
 h1 {
@@ -10,7 +10,7 @@ h1 {
 }
 
 form {
-    background-color: goldenrod;
+    background-color: #AFCDE7;
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -19,7 +19,7 @@ form {
     border-style: solid;
     border-color: black;
     border-radius: 5%;
-    box-shadow: 5px 5px 5px darksalmon;
+    box-shadow: 5px 5px 5px grey;
     padding: 20px;
     height: max-content;
 }
@@ -32,10 +32,10 @@ button {
     display: block;
     width: 100%;
     font-size: 30px;
-    background-color: darkred;
+    background-color: #AFCDE7;
     border: 2px solid black;
     border-radius: 5px;
-    box-shadow: 5px 5px 5px darksalmon;
+    box-shadow: 5px 5px 5px grey;
 }
 
 label {
@@ -62,13 +62,13 @@ button {
 }
 
 .error {
-    background-color: goldenrod;
+    background-color: #AFCDE7;
     font-size: 25px;
     border-width: 2px;
     border-style: solid;
     border-color: black;
     border-radius: 5px;
-    box-shadow: 5px 5px 5px darksalmon;
+    box-shadow: 5px 5px 5px grey;
     margin: 50px auto;
     width: max-content;
 }

@@ -3,6 +3,9 @@
 <html>
 <head>
     <title>Users</title>
+    <style>
+        <%@include file="/WEB-INF/resources/css/users.css"%>
+    </style>
 </head>
 <body>
 <%@include file="header.jsp"%>
@@ -10,6 +13,16 @@
     <h1>Users</h1>
     <div>
         <table title="Users">
+            <tr>
+                <th>№</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Birthday</th>
+                <th>Gender</th>
+                <th>Role</th>
+                <th>Registered Date</th>
+                <th colspan="2"></th>
+            </tr>
             <c:forEach var="user" items="${requestScope.users}" varStatus="loop">
                 <tr>
                     <td>${loop.index + 1}</td>
