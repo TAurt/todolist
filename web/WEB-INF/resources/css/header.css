@@ -1,0 +1,18 @@
+.header {
+    display: grid;
+    grid-template-columns: 7fr 2fr 1fr;
+}
+
+.user {
+    grid-column-start: 2;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 25px;
+}
+
+.logout {
+    grid-column-start: 3;
+    margin: auto;
+    font-size: 25px;
+}
+
