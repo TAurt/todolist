@@ -29,6 +29,25 @@ public class TaskDao implements Dao<Long, Task> {
             INSERT INTO task (user_id, title, created_date, scheduled_date, completed_date, status, priority, description)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """;
+    private static final String FIND_BY_ID_SQL = """
+            SELECT id, user_id, title, created_date, scheduled_date, completed_date, status, priority, description
+            FROM task
+            WHERE id = ?
+            """;
+    private static final String DELETE_BY_ID_SQL = """
+            DELETE FROM task
+            WHERE id = ?
+            """;
+    private static final String UPDATE_SQL = """
+            UPDATE task
+            SET title = ?,
+                scheduled_date = ?,
+                completed_date = ?,
+                status = ?,
+                priority = ?,
+                description = ?
+            WHERE id = ?
+            """;
 
     @SneakyThrows
     public List<Task> findAllByUserId(Integer userId) {
@@ -50,14 +69,31 @@ public class TaskDao implements Dao<Long, Task> {
         return null;
     }
 
+    @SneakyThrows
     @Override
     public Optional<Task> findById(Long id) {
-        return Optional.empty();
+        try (var connection = ConnectionPool.get();
+             var preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
+            preparedStatement.setObject(1, id);
+            var resultSet = preparedStatement.executeQuery();
+            Task task = null;
+            if (resultSet.next()) {
+                task = build(resultSet);
+            }
+
+            return Optional.ofNullable(task);
+        }
     }
 
+    @SneakyThrows
     @Override
     public boolean delete(Long id) {
-        return false;
+        try (var connection = ConnectionPool.get();
+             var preparedStatement = connection.prepareStatement(DELETE_BY_ID_SQL)) {
+            preparedStatement.setObject(1, id);
+
+            return preparedStatement.executeUpdate() == 1;
+        }
     }
 
     @SneakyThrows
@@ -83,8 +119,21 @@ public class TaskDao implements Dao<Long, Task> {
         }
     }
 
+    @SneakyThrows
     @Override
-    public void update(Task entity) {
+    public void update(Task task) {
+        try (var connection = ConnectionPool.get();
+             var preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
+            preparedStatement.setObject(1, task.getTitle());
+            preparedStatement.setObject(2, task.getScheduledDate());
+            preparedStatement.setObject(3, task.getCompletedDate());
+            preparedStatement.setObject(4, task.getStatus().name());
+            preparedStatement.setObject(5, task.getPriority().name());
+            preparedStatement.setObject(6, task.getDescription());
+            preparedStatement.setObject(7, task.getId());
+
+            preparedStatement.executeUpdate();
+        }
     }
 
     public static TaskDao getInstance() {
