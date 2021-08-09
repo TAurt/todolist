@@ -16,8 +16,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.mtx.todolist.util.PasswordUtil.check;
+import static lombok.AccessLevel.PRIVATE;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = PRIVATE)
 public class UserService {
 
     private static final UserService INSTANCE = new UserService();
