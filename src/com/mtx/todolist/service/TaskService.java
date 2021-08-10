@@ -40,4 +40,8 @@ public class TaskService {
     public void update(Task task) {
         taskDao.update(task);
     }
+
+    public static TaskService getInstance() {
+        return INSTANCE;
+    }
 }
