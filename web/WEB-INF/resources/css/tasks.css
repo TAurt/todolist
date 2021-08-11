@@ -24,11 +24,30 @@ th, td {
 td {
     background: #D8E6F3;
 }
+
 th:first-child, td:first-child {
     text-align: left;
 }
 
-.delete .edit {
-    padding: 10px;
-    font-size: 15px;
+input {
+    background-color: #D8E6F3;
+    font-size: 14px;
+    text-align: center;
+    border: none;
+    outline: none;
+}
+
+select {
+    background-color: #D8E6F3;
+    font-size: 14px;
+    text-align: center;
+    border: none;
+    outline: none;
+}
+
+textarea {
+    background-color: #D8E6F3;
+    font-size: 14px;
+    border: none;
+    outline: none;
 }

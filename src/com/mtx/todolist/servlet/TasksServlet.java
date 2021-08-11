@@ -4,8 +4,10 @@ import com.mtx.todolist.dto.CreateTaskDto;
 import com.mtx.todolist.dto.UserDto;
 import com.mtx.todolist.entity.Priority;
 import com.mtx.todolist.entity.Status;
+import com.mtx.todolist.entity.Task;
 import com.mtx.todolist.service.TaskService;
 import com.mtx.todolist.util.JspHelper;
+import com.mtx.todolist.util.LocalDateFormatter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -53,6 +55,26 @@ public class TasksServlet extends HttpServlet {
             taskService.create(createTaskDto);
             resp.sendRedirect("/tasks");
             return;
+        }
+
+        if (action != null && action.equals("delete")) {
+            taskService.delete(Long.valueOf(req.getParameter("id")));
+            resp.sendRedirect("/tasks");
+            return;
+        }
+
+        if (action != null && action.equals("edit")) {
+            var task = Task.builder()
+                    .id(Long.valueOf(req.getParameter("id")))
+                    .title(req.getParameter("title"))
+                    .priority(Priority.valueOf(req.getParameter("priority")))
+                    .status(Status.valueOf(req.getParameter("status")))
+                    .scheduledDate(LocalDateFormatter.format(req.getParameter("scheduledDate")))
+                    .completedDate(null)
+                    .description(req.getParameter("description"))
+                    .build();
+            taskService.update(task);
+            resp.sendRedirect("/tasks");
         }
     }
 }
