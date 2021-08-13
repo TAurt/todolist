@@ -33,9 +33,10 @@
                 <th colspan="2"></th>
             </tr>
             <c:forEach var="task" items="${requestScope.tasks}" varStatus="loop">
+                <input name="createdDate" value="${task.createdDate}" type="hidden" form="edit"/>
                 <tr>
                     <td>${loop.index + 1}</td>
-                    <td><input type="text" name="title" value="${task.title}" form="edit"/></td>
+                    <td><input type="text" name="title" value="${task.title}" form="edit" required/></td>
                     <td>
                         <select size="1" name="priority" form="edit">
                             <c:forEach var="priority" items="${requestScope.priority}">
@@ -57,7 +58,7 @@
                         </select>
                     </td>
                     <td>${task.createdDate}</td>
-                    <td><input type="date" name="scheduledDate" value="${task.scheduledDate}" form="edit"/></td>
+                    <td><input type="date" name="scheduledDate" value="${task.scheduledDate}" form="edit" required/></td>
                     <td>${task.completedDate}</td>
                     <td><textarea type="text" name="description" form="edit">${task.description}</textarea></td>
                     <td>
@@ -65,8 +66,13 @@
                         <button type="submit" form="delete">delete</button>
                     </td>
                     <td>
-                        <input type="hidden" name="id" value="${task.id}" form="edit"/>
-                        <button type="submit" form="edit">edit</button>
+                        <c:if test="${task.completedDate == null}">
+                            <input type="hidden" name="id" value="${task.id}" form="edit"/>
+                            <button type="submit" form="edit">edit</button>
+                        </c:if>
+                        <c:if test="${task.completedDate != null}">
+                            Not edit
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>
@@ -75,7 +81,7 @@
             </tr>
             <tr>
                 <td>New</td>
-                <td><input class="add" type="text" name="title" value="New task" form="add"/></td>
+                <td><input class="add" type="text" name="title" value="New task" form="add" required/></td>
                 <td>
                     <select class="add" size="1" name="priority" form="add">
                         <c:forEach var="priority" items="${requestScope.priority}">
@@ -84,12 +90,19 @@
                     </select>
                 </td>
                 <td>NEW</td>
-                <td><input class="add" type="date" name="createdDate" form="add"/></td>
-                <td><input class="add" type="date" name="scheduledDate" form="add"/></td>
+                <td><input class="add" type="date" name="createdDate" form="add" required/></td>
+                <td><input class="add" type="date" name="scheduledDate" form="add" required/></td>
                 <td colspan="2"><textarea class="add" type="text" name="description" form="add">Description</textarea></td>
                 <td colspan="2"><button type="submit" form="add">Add</button></td>
             </tr>
         </table>
     </div>
+    <c:if test="${not empty requestScope.errors}">
+        <div class="errors" style="color: red">
+            <c:forEach var="error" items="${requestScope.errors}">
+                <span>${error.message}</span><br>
+            </c:forEach>
+        </div>
+    </c:if>
 </body>
 </html>

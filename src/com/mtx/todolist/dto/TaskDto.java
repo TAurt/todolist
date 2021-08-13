@@ -5,7 +5,8 @@ import lombok.Value;
 
 @Value
 @Builder
-public class CreateTaskDto {
+public class TaskDto {
+    String id;
     String userId;
     String title;
     String createdDate;

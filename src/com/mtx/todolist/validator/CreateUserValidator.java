@@ -29,7 +29,7 @@ public class CreateUserValidator implements Validator<CreateUserDto> {
         }
 
         if (!LocalDateFormatter.isValid(createUserDto.getBirthday())) {
-            validationResult.add(Error.of("birthday.invalid","birthday is invalid"));
+            validationResult.add(Error.of("birthday.invalid","Birthday is invalid"));
         }
 
         if (Gender.find(createUserDto.getGender()).isEmpty()) {
