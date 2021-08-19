@@ -7,6 +7,7 @@ import com.mtx.todolist.entity.Status;
 import com.mtx.todolist.exception.ValidationException;
 import com.mtx.todolist.service.TaskService;
 import com.mtx.todolist.util.JspHelper;
+import com.mtx.todolist.util.UrlPath;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-@WebServlet("/tasks")
+@WebServlet(UrlPath.TASKS)
 public class TasksServlet extends HttpServlet {
 
     private final TaskService taskService = TaskService.getInstance();

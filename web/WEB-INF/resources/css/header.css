@@ -1,6 +1,6 @@
 .header {
     display: grid;
-    grid-template-columns: 7fr 2fr 1fr;
+    grid-template-columns: 7fr 2fr 1fr 1fr;
 }
 
 .user {
@@ -11,6 +11,12 @@
 }
 
 .logout {
+    grid-column-start: 4;
+    margin: auto;
+    font-size: 25px;
+}
+
+.tasks {
     grid-column-start: 3;
     margin: auto;
     font-size: 25px;

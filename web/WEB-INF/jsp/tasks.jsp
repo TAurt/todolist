@@ -31,7 +31,7 @@
                     <input type="hidden" name="action" value="edit">
                 </form>
                 <input name="createdDate" value="${task.createdDate}" type="hidden" form="edit + ${task.id}"/>
-                <tr style="background-color:${task.status == 'RUNNING' ? '#D8E6F3' : task.status == 'COMPLETED' ? 'lightgreen' : 'pink'}">
+                <tr style="background-color:${task.status == 'RUNNING' ? 'lightblue' : task.status == 'COMPLETED' ? 'lightgreen' : 'pink'}">
                     <td>${loop.index + 1}</td>
                     <td><input type="text" name="title" value="${task.title}" form="edit + ${task.id}" required/></td>
                     <td>

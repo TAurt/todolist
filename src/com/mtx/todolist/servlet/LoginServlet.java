@@ -3,6 +3,7 @@ package com.mtx.todolist.servlet;
 import com.mtx.todolist.dto.UserDto;
 import com.mtx.todolist.service.UserService;
 import com.mtx.todolist.util.JspHelper;
+import com.mtx.todolist.util.UrlPath;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +13,7 @@ import lombok.SneakyThrows;
 
 import java.io.IOException;
 
-@WebServlet("/login")
+@WebServlet(UrlPath.LOGIN)
 public class LoginServlet extends HttpServlet {
     private final UserService userService = UserService.getInstance();
 
