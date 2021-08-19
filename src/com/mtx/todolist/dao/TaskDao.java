@@ -24,6 +24,7 @@ public class TaskDao implements Dao<Long, Task> {
             SELECT id, user_id, title, created_date, scheduled_date, completed_date, status, priority, description
             FROM task
             WHERE user_id = ?
+            ORDER BY created_date
             """;
     private static final String SAVE_SQL = """
             INSERT INTO task (user_id, title, created_date, scheduled_date, completed_date, status, priority, description)

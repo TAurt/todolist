@@ -11,15 +11,6 @@
     <%@include file="header.jsp"%>
     <div>
         <h1>My tasks</h1>
-        <form action="${pageContext.request.contextPath}/tasks" method="post" id="add">
-            <input type="hidden" name="action" value="create">
-        </form>
-        <form class="delete" action="${pageContext.request.contextPath}/tasks" method="post" id="delete">
-            <input type="hidden" name="action" value="delete">
-        </form>
-        <form class="edit" action="${pageContext.request.contextPath}/tasks" method="post" id="edit">
-            <input type="hidden" name="action" value="edit">
-        </form>
         <table title="Tasks">
             <tr>
                 <th>№</th>
@@ -33,12 +24,18 @@
                 <th colspan="2"></th>
             </tr>
             <c:forEach var="task" items="${requestScope.tasks}" varStatus="loop">
-                <input name="createdDate" value="${task.createdDate}" type="hidden" form="edit"/>
-                <tr>
+                <form class="delete" action="${pageContext.request.contextPath}/tasks" method="post" id="delete + ${task.id}">
+                    <input type="hidden" name="action" value="delete">
+                </form>
+                <form class="edit" action="${pageContext.request.contextPath}/tasks" method="post" id="edit + ${task.id}">
+                    <input type="hidden" name="action" value="edit">
+                </form>
+                <input name="createdDate" value="${task.createdDate}" type="hidden" form="edit + ${task.id}"/>
+                <tr style="background-color:${task.status == 'RUNNING' ? '#D8E6F3' : task.status == 'COMPLETED' ? 'lightgreen' : 'pink'}">
                     <td>${loop.index + 1}</td>
-                    <td><input type="text" name="title" value="${task.title}" form="edit" required/></td>
+                    <td><input type="text" name="title" value="${task.title}" form="edit + ${task.id}" required/></td>
                     <td>
-                        <select size="1" name="priority" form="edit">
+                        <select size="1" name="priority" form="edit + ${task.id}">
                             <c:forEach var="priority" items="${requestScope.priority}">
                                 <c:if test="${task.priority != priority}">
                                     <option value="${priority}">${priority}</option>
@@ -48,7 +45,7 @@
                         </select>
                     </td>
                     <td>
-                        <select size="1" name="status" form="edit">
+                        <select size="1" name="status" form="edit + ${task.id}">
                             <c:forEach var="status" items="${requestScope.status}">
                                 <c:if test="${task.status != status}">
                                     <option value="${status}">${status}</option>
@@ -58,19 +55,19 @@
                         </select>
                     </td>
                     <td>${task.createdDate}</td>
-                    <td><input type="date" name="scheduledDate" value="${task.scheduledDate}" form="edit" required/></td>
+                    <td><input type="date" name="scheduledDate" value="${task.scheduledDate}" form="edit + ${task.id}" required/></td>
                     <td>${task.completedDate}</td>
-                    <td><textarea type="text" name="description" form="edit">${task.description}</textarea></td>
+                    <td><textarea type="text" name="description" form="edit + ${task.id}">${task.description}</textarea></td>
                     <td>
-                        <input type="hidden" name="id" value="${task.id}" form="delete">
-                        <button type="submit" form="delete">delete</button>
+                        <input type="hidden" name="id" value="${task.id}" form="delete + ${task.id}">
+                        <button type="submit" form="delete + ${task.id}">delete</button>
                     </td>
                     <td>
-                        <c:if test="${task.completedDate == null}">
-                            <input type="hidden" name="id" value="${task.id}" form="edit"/>
-                            <button type="submit" form="edit">edit</button>
+                        <c:if test="${task.status == 'RUNNING'}">
+                            <input type="hidden" name="id" value="${task.id}" form="edit + ${task.id}"/>
+                            <button type="submit" form="edit + ${task.id}">edit</button>
                         </c:if>
-                        <c:if test="${task.completedDate != null}">
+                        <c:if test="${task.status != 'RUNNING'}">
                             Not edit
                         </c:if>
                     </td>
@@ -79,7 +76,10 @@
             <tr>
                 <td colspan="10"></td>
             </tr>
-            <tr>
+            <tr style="background-color: #D8E6F3">
+                <form action="${pageContext.request.contextPath}/tasks" method="post" id="add">
+                    <input type="hidden" name="action" value="create">
+                </form>
                 <td>New</td>
                 <td><input class="add" type="text" name="title" value="New task" form="add" required/></td>
                 <td>

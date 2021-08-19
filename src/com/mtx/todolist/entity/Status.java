@@ -5,7 +5,8 @@ import java.util.Optional;
 
 public enum Status {
     RUNNING,
-    COMPLETED;
+    COMPLETED,
+    FAILED;
 
     public static Optional<Status> find(String status) {
         return Arrays.stream(values())

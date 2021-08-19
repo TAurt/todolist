@@ -28,8 +28,8 @@ public class TaskDtoValidator implements Validator<TaskDto>{
         if (LocalDateFormatter.isValid(taskDto.getScheduledDate()) && LocalDateFormatter.isValid(taskDto.getCreatedDate())) {
             var createdDate = LocalDateFormatter.format(taskDto.getCreatedDate());
             var scheduledDate = LocalDateFormatter.format(taskDto.getScheduledDate());
-            if (createdDate.isBefore(LocalDate.now())) {
-                validationResult.add(Error.of("createdDate.invalid", "Created date cannot be before today"));
+            if (createdDate.isAfter(LocalDate.now())) {
+                validationResult.add(Error.of("createdDate.invalid", "Created date cannot be after today"));
             } else if (createdDate.isAfter(scheduledDate)) {
                 validationResult.add(Error.of("scheduledDate.invalid", "Scheduled date cannot be before created date"));
             }

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -38,7 +39,20 @@ public class TaskService {
     }
 
     public List<Task> getAllByUserId(Integer userId) {
-        return taskDao.findAllByUserId(userId);
+        List<Task> tasks = taskDao.findAllByUserId(userId);
+        var tasksForUpdate = tasks.stream()
+                .filter(task -> LocalDate.now().isAfter(task.getScheduledDate()) && task.getStatus() != Status.COMPLETED)
+                .collect(Collectors.toList());
+        if (!tasksForUpdate.isEmpty()) {
+            tasksForUpdate
+            .forEach(task -> {
+                task.setStatus(Status.FAILED);
+                taskDao.update(task);
+            });
+            return taskDao.findAllByUserId(userId);
+        }
+
+        return tasks;
     }
 
     public boolean delete(Long id) {

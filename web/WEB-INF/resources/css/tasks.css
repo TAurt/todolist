@@ -27,9 +27,9 @@ th:first-child, td:first-child {
     text-align: left;
 }
 
-td {
-    background: #D8E6F3;
-}
+/*td {*/
+/*    background: #D8E6F3;*/
+/*}*/
 
 input {
     background-color: #D8E6F3;
