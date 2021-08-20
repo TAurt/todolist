@@ -21,17 +21,24 @@ public class TaskDtoValidator implements Validator<TaskDto>{
             validationResult.add(Error.of("title.invalid", "Title can not be empty"));
         }
 
+
+        if (!LocalDateFormatter.isValid(taskDto.getStartDate())) {
+            validationResult.add(Error.of("startDate.invalid", "Start date is invalid"));
+        }
+
         if (!LocalDateFormatter.isValid(taskDto.getEndDate())) {
-            validationResult.add(Error.of("scheduledDate.invalid", "Scheduled date is invalid"));
+            validationResult.add(Error.of("endDate.invalid", "End date is invalid"));
         }
 
         if (LocalDateFormatter.isValid(taskDto.getEndDate()) && LocalDateFormatter.isValid(taskDto.getStartDate())) {
-            var createdDate = LocalDateFormatter.format(taskDto.getStartDate());
-            var scheduledDate = LocalDateFormatter.format(taskDto.getEndDate());
-            if (createdDate.isAfter(LocalDate.now())) {
-                validationResult.add(Error.of("createdDate.invalid", "Created date cannot be after today"));
-            } else if (createdDate.isAfter(scheduledDate)) {
-                validationResult.add(Error.of("scheduledDate.invalid", "Scheduled date cannot be before created date"));
+            var startDate = LocalDateFormatter.format(taskDto.getStartDate());
+            var endDate = LocalDateFormatter.format(taskDto.getEndDate());
+            if (endDate.isBefore(startDate)) {
+                validationResult.add(Error.of("endDate.invalid", "End date cannot be before start date"));
+            }
+
+            if (endDate.isBefore(LocalDate.now())) {
+                validationResult.add(Error.of("endDate.invalid", "End date cannot be before today"));
             }
         }
 
