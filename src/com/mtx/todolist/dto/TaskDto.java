@@ -9,8 +9,8 @@ public class TaskDto {
     String id;
     String userId;
     String title;
-    String createdDate;
-    String scheduledDate;
+    String startDate;
+    String endDate;
     String completedDate;
     String status;
     String priority;

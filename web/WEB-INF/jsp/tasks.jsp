@@ -17,8 +17,8 @@
                 <th>Title</th>
                 <th>Priority</th>
                 <th>Status</th>
-                <th>Created date</th>
-                <th>Scheduled date</th>
+                <th>Start date</th>
+                <th>End date</th>
                 <th>Completed date</th>
                 <th>Description</th>
                 <th colspan="2"></th>
@@ -30,7 +30,7 @@
                 <form class="edit" action="${pageContext.request.contextPath}/tasks" method="post" id="edit + ${task.id}">
                     <input type="hidden" name="action" value="edit">
                 </form>
-                <input name="createdDate" value="${task.createdDate}" type="hidden" form="edit + ${task.id}"/>
+                <input name="startDate" value="${task.startDate}" type="hidden" form="edit + ${task.id}"/>
                 <tr style="background-color:${task.status == 'RUNNING' ? 'lightblue' : task.status == 'COMPLETED' ? 'lightgreen' : 'pink'}">
                     <td>${loop.index + 1}</td>
                     <td><input type="text" name="title" value="${task.title}" form="edit + ${task.id}" required/></td>
@@ -54,8 +54,8 @@
                             <option value="${task.status}" selected>${task.status}</option>
                         </select>
                     </td>
-                    <td>${task.createdDate}</td>
-                    <td><input type="date" name="scheduledDate" value="${task.scheduledDate}" form="edit + ${task.id}" required/></td>
+                    <td>${task.startDate}</td>
+                    <td><input type="date" name="endDate" value="${task.endDate}" form="edit + ${task.id}" required/></td>
                     <td>${task.completedDate}</td>
                     <td><textarea type="text" name="description" form="edit + ${task.id}">${task.description}</textarea></td>
                     <td>
@@ -90,8 +90,8 @@
                     </select>
                 </td>
                 <td>NEW</td>
-                <td><input class="add" type="date" name="createdDate" form="add" required/></td>
-                <td><input class="add" type="date" name="scheduledDate" form="add" required/></td>
+                <td><input class="add" type="date" name="startDate" form="add" required/></td>
+                <td><input class="add" type="date" name="endDate" form="add" required/></td>
                 <td colspan="2"><textarea class="add" type="text" name="description" form="add">Description</textarea></td>
                 <td colspan="2"><button type="submit" form="add">Add</button></td>
             </tr>

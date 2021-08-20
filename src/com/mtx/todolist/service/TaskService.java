@@ -7,7 +7,6 @@ import com.mtx.todolist.entity.Task;
 import com.mtx.todolist.exception.ValidationException;
 import com.mtx.todolist.mapper.TaskMapper;
 import com.mtx.todolist.validator.TaskDtoValidator;
-import com.mtx.todolist.validator.ValidationResult;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -41,7 +40,7 @@ public class TaskService {
     public List<Task> getAllByUserId(Integer userId) {
         List<Task> tasks = taskDao.findAllByUserId(userId);
         var tasksForUpdate = tasks.stream()
-                .filter(task -> LocalDate.now().isAfter(task.getScheduledDate()) && task.getStatus() != Status.COMPLETED)
+                .filter(task -> LocalDate.now().isAfter(task.getEndDate()) && task.getStatus() != Status.COMPLETED)
                 .collect(Collectors.toList());
         if (!tasksForUpdate.isEmpty()) {
             tasksForUpdate

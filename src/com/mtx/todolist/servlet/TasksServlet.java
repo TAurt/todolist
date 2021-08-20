@@ -47,8 +47,8 @@ public class TasksServlet extends HttpServlet {
                     .title(req.getParameter("title"))
                     .priority(req.getParameter("priority"))
                     .status(Status.RUNNING.name())
-                    .createdDate(req.getParameter("createdDate"))
-                    .scheduledDate(req.getParameter("scheduledDate"))
+                    .startDate(req.getParameter("startDate"))
+                    .endDate(req.getParameter("endDate"))
                     .description(req.getParameter("description"))
                     .build();
             try {
@@ -74,8 +74,8 @@ public class TasksServlet extends HttpServlet {
                     .title(req.getParameter("title"))
                     .priority(req.getParameter("priority"))
                     .status(req.getParameter("status"))
-                    .createdDate(req.getParameter("createdDate"))
-                    .scheduledDate(req.getParameter("scheduledDate"))
+                    .startDate(req.getParameter("startDate"))
+                    .endDate(req.getParameter("endDate"))
                     .completedDate(null)
                     .description(req.getParameter("description"))
                     .build();

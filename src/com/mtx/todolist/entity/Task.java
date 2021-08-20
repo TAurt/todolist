@@ -15,8 +15,8 @@ public class Task {
     private Long id;
     private Integer userId;
     private String title;
-    private LocalDate createdDate;
-    private LocalDate scheduledDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private LocalDate completedDate;
     private Status status;
     private Priority priority;

@@ -21,13 +21,13 @@ public class TaskDtoValidator implements Validator<TaskDto>{
             validationResult.add(Error.of("title.invalid", "Title can not be empty"));
         }
 
-        if (!LocalDateFormatter.isValid(taskDto.getScheduledDate())) {
+        if (!LocalDateFormatter.isValid(taskDto.getEndDate())) {
             validationResult.add(Error.of("scheduledDate.invalid", "Scheduled date is invalid"));
         }
 
-        if (LocalDateFormatter.isValid(taskDto.getScheduledDate()) && LocalDateFormatter.isValid(taskDto.getCreatedDate())) {
-            var createdDate = LocalDateFormatter.format(taskDto.getCreatedDate());
-            var scheduledDate = LocalDateFormatter.format(taskDto.getScheduledDate());
+        if (LocalDateFormatter.isValid(taskDto.getEndDate()) && LocalDateFormatter.isValid(taskDto.getStartDate())) {
+            var createdDate = LocalDateFormatter.format(taskDto.getStartDate());
+            var scheduledDate = LocalDateFormatter.format(taskDto.getEndDate());
             if (createdDate.isAfter(LocalDate.now())) {
                 validationResult.add(Error.of("createdDate.invalid", "Created date cannot be after today"));
             } else if (createdDate.isAfter(scheduledDate)) {
