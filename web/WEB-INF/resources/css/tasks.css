@@ -27,10 +27,6 @@ th:first-child, td:first-child {
     text-align: left;
 }
 
-/*td {*/
-/*    background: #D8E6F3;*/
-/*}*/
-
 input {
     background-color: #D8E6F3;
     font-size: 14px;
@@ -64,4 +60,33 @@ textarea {
     box-shadow: 5px 5px 5px grey;
     margin: 50px auto;
     width: max-content;
+}
+
+.addform {
+    background-color:  #AFCDE7;
+    width: 80%;
+    color: white;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    border-width: 2px;
+    border-style: solid;
+    border-color: white;
+    margin: 50px auto;
+}
+
+.addform input {
+    background-color: #AFCDE7;
+}
+
+.addform select {
+    background-color: #AFCDE7;
+}
+
+.add {
+    width: 20%;
+    height: max-content;
+    border-width: 0 1px 1px 0;
+    border-style: solid;
+    border-color: white;
+    font-size: 18px;
+    margin: 5px;
 }

@@ -31,7 +31,7 @@
                     <input type="hidden" name="action" value="edit">
                 </form>
                 <input name="startDate" value="${task.startDate}" type="hidden" form="edit + ${task.id}"/>
-                <tr style="background-color:${task.status == 'RUNNING' ? 'lightblue' : task.status == 'COMPLETED' ? 'lightgreen' : 'pink'}">
+                <tr style="background-color:${task.status == 'RUNNING' ? '#D8E6F3' : task.status == 'COMPLETED' ? 'lightgreen' : 'pink'}">
                     <td>${loop.index + 1}</td>
                     <td><input type="text" name="title" value="${task.title}" form="edit + ${task.id}" required/></td>
                     <td>
@@ -76,26 +76,32 @@
             <tr>
                 <td colspan="10"></td>
             </tr>
-            <tr style="background-color: #D8E6F3">
-                <form action="${pageContext.request.contextPath}/tasks" method="post" id="add">
-                    <input type="hidden" name="action" value="create">
-                </form>
-                <td>New</td>
-                <td><input class="add" type="text" name="title" value="New task" form="add" required/></td>
-                <td>
-                    <select class="add" size="1" name="priority" form="add">
-                        <c:forEach var="priority" items="${requestScope.priority}">
-                            <option value="${priority}">${priority}</option>
-                        </c:forEach>
-                    </select>
-                </td>
-                <td>NEW</td>
-                <td><input class="add" type="date" name="startDate" form="add" required/></td>
-                <td><input class="add" type="date" name="endDate" form="add" required/></td>
-                <td colspan="2"><textarea class="add" type="text" name="description" form="add">Description</textarea></td>
-                <td colspan="2"><button type="submit" form="add">Add</button></td>
-            </tr>
         </table>
+    </div>
+    <div>
+        <form class="addform" action="${pageContext.request.contextPath}/tasks" method="post" id="add">
+            <input type="hidden" name="action" value="create">
+            <label class="add" for="title">Title:
+                <input type="text" name="title" placeholder="New task" form="add" id="title" required/>
+            </label>
+            <label class="add" for="priority">Priority:
+                <select size="1" name="priority" form="add" id="priority">
+                    <c:forEach var="priority" items="${requestScope.priority}">
+                        <option value="${priority}">${priority}</option>
+                    </c:forEach>
+                </select>
+            </label>
+            <label class="add" for="start">Start date:
+                <input type="date" name="startDate" form="add" id="start" required/>
+            </label>
+            <label class="add" for="end">End date:
+                <input type="date" name="endDate" form="add" id="end" required/>
+            </label>
+            <label class="add" for="description">Description:
+                <input type="text" name="description" form="add" id="description"/>
+            </label>
+            <button type="submit" form="add">Add</button>
+        </form>
     </div>
     <c:if test="${not empty requestScope.errors}">
         <div class="errors" style="color: red">

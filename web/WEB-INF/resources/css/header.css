@@ -1,24 +1,35 @@
 .header {
     display: grid;
-    grid-template-columns: 7fr 2fr 1fr 1fr;
+    grid-template-columns: 85% 5% 5% 5%;
 }
 
 .user {
-    grid-column-start: 2;
     text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
     padding-right: 10px;
     font-size: 25px;
 }
 
-.logout {
-    grid-column-start: 4;
+.users {
+    width: 100%;
     margin: auto;
     font-size: 25px;
 }
 
 .tasks {
-    grid-column-start: 3;
+    width: 100%;
     margin: auto;
     font-size: 25px;
+}
+
+.logout {
+    width: 100%;
+    margin: auto;
+    font-size: 25px;
+}
+
+.header button {
+    font-size: 20px;
 }
 
