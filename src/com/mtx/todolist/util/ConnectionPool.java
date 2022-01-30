@@ -42,6 +42,7 @@ public class ConnectionPool {
         for (Connection connection : connections) {
             try {
                 connection.close();
+                System.out.println("Connection was closed");
             } catch (SQLException throwables) {
                 throw new RuntimeException(throwables);
             }
