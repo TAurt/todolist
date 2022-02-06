@@ -33,31 +33,62 @@
                 <input name="startDate" value="${task.startDate}" type="hidden" form="edit + ${task.id}"/>
                 <tr style="background-color:${task.status == 'RUNNING' ? '#D8E6F3' : task.status == 'COMPLETED' ? 'lightgreen' : 'pink'}">
                     <td>${loop.index + 1}</td>
-                    <td><input type="text" name="title" value="${task.title}" form="edit + ${task.id}" required/></td>
                     <td>
-                        <select size="1" name="priority" form="edit + ${task.id}">
-                            <c:forEach var="priority" items="${requestScope.priority}">
-                                <c:if test="${task.priority != priority}">
-                                    <option value="${priority}">${priority}</option>
-                                </c:if>
-                            </c:forEach>
-                            <option value="${task.priority}" selected>${task.priority}</option>
-                        </select>
+                        <c:if test="${task.status == 'RUNNING'}">
+                            <input type="text" name="title" value="${task.title}" form="edit + ${task.id}" required/>
+                        </c:if>
+                        <c:if test="${task.status != 'RUNNING'}">
+                            ${task.title}
+                        </c:if>
                     </td>
                     <td>
-                        <select size="1" name="status" form="edit + ${task.id}">
-                            <c:forEach var="status" items="${requestScope.status}">
-                                <c:if test="${task.status != status}">
-                                    <option value="${status}">${status}</option>
-                                </c:if>
-                            </c:forEach>
-                            <option value="${task.status}" selected>${task.status}</option>
-                        </select>
+                        <c:if test="${task.status == 'RUNNING'}">
+                            <select size="1" name="priority" form="edit + ${task.id}">
+                                <c:forEach var="priority" items="${requestScope.priority}">
+                                    <c:if test="${task.priority != priority}">
+                                        <option value="${priority}">${priority}</option>
+                                    </c:if>
+                                </c:forEach>
+                                <option value="${task.priority}" selected>${task.priority}</option>
+                            </select>
+                        </c:if>
+                        <c:if test="${task.status != 'RUNNING'}">
+                            ${task.priority}
+                        </c:if>
+                    </td>
+                    <td>
+                        <c:if test="${task.status == 'RUNNING'}">
+                            <select size="1" name="status" form="edit + ${task.id}">
+                                <c:forEach var="status" items="${requestScope.status}">
+                                    <c:if test="${task.status != status}">
+                                        <option value="${status}">${status}</option>
+                                    </c:if>
+                                </c:forEach>
+                                <option value="${task.status}" selected>${task.status}</option>
+                            </select>
+                        </c:if>
+                        <c:if test="${task.status != 'RUNNING'}">
+                            ${task.status}
+                        </c:if>
                     </td>
                     <td>${task.startDate}</td>
-                    <td><input type="date" name="endDate" value="${task.endDate}" form="edit + ${task.id}" required/></td>
+                    <td>
+                        <c:if test="${task.status == 'RUNNING'}">
+                            <input type="date" name="endDate" value="${task.endDate}" form="edit + ${task.id}" required/>
+                        </c:if>
+                        <c:if test="${task.status != 'RUNNING'}">
+                            ${task.endDate}
+                        </c:if>
+                    </td>
                     <td>${task.completedDate}</td>
-                    <td><textarea type="text" name="description" form="edit + ${task.id}">${task.description}</textarea></td>
+                    <td>
+                        <c:if test="${task.status == 'RUNNING'}">
+                            <textarea type="text" name="description" form="edit + ${task.id}">${task.description}</textarea>
+                        </c:if>
+                        <c:if test="${task.status != 'RUNNING'}">
+                            ${task.description}
+                        </c:if>
+                    </td>
                     <td>
                         <input type="hidden" name="id" value="${task.id}" form="delete + ${task.id}">
                         <button type="submit" form="delete + ${task.id}">delete</button>
