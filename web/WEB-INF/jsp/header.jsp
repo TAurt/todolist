@@ -6,12 +6,15 @@
 <div class="header">
     <c:if test="${not empty sessionScope.user}">
         <span class="user">Hello, ${sessionScope.user.name}</span>
-        <a class="tasks" href="${pageContext.request.contextPath}/tasks">
-            <button type="button">Tasks</button>
-        </a>
-        <a class="users" href="${pageContext.request.contextPath}/users">
-            <button type="button">Users</button>
-        </a>
+        <img class="img" src="${pageContext.request.contextPath}/images/${sessionScope.user.image}"  alt="User image">
+        <c:if test="${sessionScope.user.role == 'ADMIN'}">
+            <a class="tasks" href="${pageContext.request.contextPath}/tasks">
+                <button type="button">Tasks</button>
+            </a>
+            <a class="users" href="${pageContext.request.contextPath}/users">
+                <button type="button">Users</button>
+            </a>
+        </c:if>
         <form class="logout" action="${pageContext.request.contextPath}/logout" method="post">
             <button type="submit">Logout</button>
         </form>

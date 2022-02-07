@@ -99,7 +99,7 @@
                             <button type="submit" form="edit + ${task.id}">edit</button>
                         </c:if>
                         <c:if test="${task.status != 'RUNNING'}">
-                            Not edit
+                            No edit
                         </c:if>
                     </td>
                 </tr>

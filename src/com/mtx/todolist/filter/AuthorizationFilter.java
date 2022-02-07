@@ -15,30 +15,30 @@ import static com.mtx.todolist.util.UrlPath.*;
 @WebFilter("/*")
 public class AuthorizationFilter implements Filter {
 
-    private static final Set<String> PUBLIC_PATH = Set.of(REGISTRATION, LOGIN);
+    private static final Set<String> PUBLIC_PATH = Set.of(REGISTRATION, LOGIN, IMAGES);
     private static final Set<String> ADMIN_PATH = Set.of(USERS);
     private static final Set<String> USER_PATH = Set.of(TASKS, LOGOUT);
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         var uri = ((HttpServletRequest) servletRequest).getRequestURI();
+
         if (isPublicPath(uri)) {
             filterChain.doFilter(servletRequest, servletResponse);
-            return;
         }
 
-        if (isAdminPath(uri) && isUserLoggedInAsAdmin(servletRequest)) {
+        else if (isAdminPath(uri) && isUserLoggedInAsAdmin(servletRequest)) {
             filterChain.doFilter(servletRequest, servletResponse);
-            return;
         }
 
-        if (isUserPath(uri) && isUserLoggedIn(servletRequest)) {
+        else if (isUserPath(uri) && isUserLoggedIn(servletRequest)) {
             filterChain.doFilter(servletRequest, servletResponse);
-            return;
         }
 
-        var prevPage = ((HttpServletRequest) servletRequest).getHeader("referer");
-        ((HttpServletResponse) servletResponse).sendRedirect(prevPage != null ? prevPage : LOGIN);
+        else {
+            var prevPage = ((HttpServletRequest) servletRequest).getHeader("referer");
+            ((HttpServletResponse) servletResponse).sendRedirect(prevPage != null ? prevPage : LOGIN);
+        }
     }
 
     private boolean isUserLoggedIn(ServletRequest servletRequest) {
