@@ -32,8 +32,10 @@
                     <td>${user.gender}</td>
                     <td>${user.role}</td>
                     <td>${user.registeredDate}</td>
-                    <td><a href="${pageContext.request.contextPath}/users?action=delete&id=${user.id}">
-                        <button type="button">delete</button>
+                    <td><a href="${pageContext.request.contextPath}/users?action=delete&id=${user.id}&email=${user.email}">
+                        <c:if test="${user.role != 'ADMIN'}">
+                            <button type="button">delete</button>
+                        </c:if>
                     </a></td>
                     <td><a href="${pageContext.request.contextPath}/edit?id=${user.id}">
                         <button type="button">edit</button>
@@ -42,6 +44,11 @@
             </c:forEach>
         </table>
     </div>
+    <c:if test="${not empty requestScope.delete}">
+        <div class="deleteMessage">
+            <span>${requestScope.delete}</span>
+        </div>
+    </c:if>
 </div>
 
 </body>

@@ -22,14 +22,12 @@ public class UsersServlet extends HttpServlet {
         if (action != null && action.equals("delete")) {
             var delete = userService.delete(Integer.valueOf(req.getParameter("id")));
             if (delete) {
-                req.setAttribute("delete", "User was deleted success");
+                req.setAttribute("delete", "User " + req.getParameter("email") + " was deleted success");
             }
-            resp.sendRedirect("users");
-        } else {
-            var users = userService.getAll();
-            req.setAttribute("users", users);
-            req.getRequestDispatcher(JspHelper.getPath("/users"))
-                    .forward(req, resp);
         }
+        var users = userService.getAll();
+        req.setAttribute("users", users);
+        req.getRequestDispatcher(JspHelper.getPath("/users"))
+                .forward(req, resp);
     }
 }
