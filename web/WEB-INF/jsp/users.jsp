@@ -8,7 +8,7 @@
     </style>
 </head>
 <body>
-<%@include file="header.jsp"%>
+<%@include file="header.jsp" %>
 <div>
     <h1>Users</h1>
     <div>
@@ -32,12 +32,15 @@
                     <td>${user.gender}</td>
                     <td>${user.role}</td>
                     <td>${user.registeredDate}</td>
-                    <td><a href="${pageContext.request.contextPath}/users?action=delete&id=${user.id}&email=${user.email}">
+                    <td>
                         <c:if test="${user.role != 'ADMIN'}">
-                            <button type="button">delete</button>
+                            <a href="${pageContext.request.contextPath}/users?action=delete&id=${user.id}&email=${user.email}">
+                                <button type="button">delete</button>
+                            </a>
                         </c:if>
-                    </a></td>
-                    <td><a href="${pageContext.request.contextPath}/edit?id=${user.id}">
+                    </td>
+
+                    <td><a href="${pageContext.request.contextPath}/edituser?id=${user.id}">
                         <button type="button">edit</button>
                     </a></td>
                 </tr>

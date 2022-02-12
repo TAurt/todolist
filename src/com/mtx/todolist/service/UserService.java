@@ -3,6 +3,7 @@ package com.mtx.todolist.service;
 import com.mtx.todolist.dao.UserDao;
 import com.mtx.todolist.dto.CreateUserDto;
 import com.mtx.todolist.dto.UserDto;
+import com.mtx.todolist.entity.User;
 import com.mtx.todolist.exception.ValidationException;
 import com.mtx.todolist.mapper.CreateUserMapper;
 import com.mtx.todolist.mapper.UserMapper;
@@ -71,6 +72,10 @@ public class UserService {
 
     public boolean delete(Integer id) {
        return userDao.delete(id);
+    }
+
+    public Optional<UserDto> getById(Integer id) {
+        return userDao.findById(id).map(userMapper::mapFrom);
     }
 
     public static UserService getInstance() {

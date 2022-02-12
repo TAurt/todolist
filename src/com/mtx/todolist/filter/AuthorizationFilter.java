@@ -17,7 +17,7 @@ public class AuthorizationFilter implements Filter {
 
     private static final Set<String> PUBLIC_PATH = Set.of(REGISTRATION, LOGIN, IMAGES);
     private static final Set<String> ADMIN_PATH = Set.of(USERS);
-    private static final Set<String> USER_PATH = Set.of(TASKS, LOGOUT);
+    private static final Set<String> USER_PATH = Set.of(TASKS, LOGOUT, EDIT_USER);
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -37,7 +37,8 @@ public class AuthorizationFilter implements Filter {
 
         else {
             var prevPage = ((HttpServletRequest) servletRequest).getHeader("referer");
-            ((HttpServletResponse) servletResponse).sendRedirect(prevPage != null ? prevPage : LOGIN);
+            ((HttpServletResponse) servletResponse)
+                    .sendRedirect((prevPage != null && isUserLoggedIn(servletRequest)) ? prevPage : LOGIN);
         }
     }
 

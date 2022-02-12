@@ -15,8 +15,8 @@
                 <button type="button">Users</button>
             </a>
         </c:if>
-        <form class="logout" action="${pageContext.request.contextPath}/logout" method="post">
+        <a class="logout" href="${pageContext.request.contextPath}/logout">
             <button type="submit">Logout</button>
-        </form>
+        </a>
     </c:if>
 </div>
