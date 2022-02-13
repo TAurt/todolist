@@ -26,7 +26,7 @@ public class ProfileMapper implements Mapper<Profile, User> {
                     .birthday(LocalDateFormatter.format(profile.getBirthday()))
                     .gender(Gender.valueOf(profile.getGender()))
                     .image(!profile.getImage().getSubmittedFileName().isEmpty()
-                            ? IMAGE_FOLDER + File.separator + profile.getImage().getSubmittedFileName()
+                            ? IMAGE_FOLDER + File.separator + profile.getEmail() + profile.getImage().getSubmittedFileName()
                             : (!profile.getImagePath().equals(DEFAULT_MALE_IMAGE) && !profile.getImagePath().equals(DEFAULT_FEMALE_IMAGE) && !profile.getImagePath().isEmpty())
                             ? profile.getImagePath()
                             : Gender.MALE.name().equals(profile.getGender())
