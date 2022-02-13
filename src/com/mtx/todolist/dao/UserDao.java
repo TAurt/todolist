@@ -32,7 +32,6 @@ public class UserDao implements Dao<Integer, User> {
                 email = ?,
                 password = ?,
                 gender = ?,
-                role = ?,
                 image = ?
             WHERE id = ?;
             """;
@@ -144,7 +143,7 @@ public class UserDao implements Dao<Integer, User> {
 
     @SneakyThrows
     @Override
-    public void update(User user) {
+    public int update(User user) {
         try (var connection = ConnectionPool.get();
              var preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
             preparedStatement.setObject(1, user.getName());
@@ -152,11 +151,10 @@ public class UserDao implements Dao<Integer, User> {
             preparedStatement.setObject(3, user.getEmail());
             preparedStatement.setObject(4, user.getPassword());
             preparedStatement.setObject(5, user.getGender().name());
-            preparedStatement.setObject(6, user.getRole().name());
-            preparedStatement.setObject(7, user.getImage());
-            preparedStatement.setObject(8, user.getId());
+            preparedStatement.setObject(6, user.getImage());
+            preparedStatement.setObject(7, user.getId());
 
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate();
         }
     }
 

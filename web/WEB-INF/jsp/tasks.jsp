@@ -116,7 +116,7 @@
         <div class="addform">
             <div class="add">
                 <label for="title">Title:
-                    <input width="100%" type="text" name="title" placeholder="enter task name" form="add" id="title" required/>
+                    <input type="text" name="title" placeholder="enter task name" form="add" id="title" required/>
                 </label>
             </div>
             <div class="add">

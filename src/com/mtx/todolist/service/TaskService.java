@@ -26,7 +26,7 @@ public class TaskService {
     private final TaskMapper taskMapper = TaskMapper.getInstance();
 
     public Long create(TaskDto taskDto) {
-        var validationResult = taskDtoValidator.isValid(taskDto);
+        var validationResult = taskDtoValidator.validate(taskDto);
 
         if (!validationResult.isValid()) {
             throw new ValidationException(validationResult.getErrors());
@@ -63,7 +63,7 @@ public class TaskService {
     }
 
     public void update(TaskDto taskDto) {
-        var validationResult = taskDtoValidator.isValid(taskDto);
+        var validationResult = taskDtoValidator.validate(taskDto);
         if (!validationResult.isValid()) {
             throw new ValidationException(validationResult.getErrors());
         }

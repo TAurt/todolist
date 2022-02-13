@@ -13,7 +13,7 @@ public class CreateUserValidator implements Validator<CreateUserDto> {
     private static final int MIN_PASSWORD_LENGTH = 8;
 
     @Override
-    public ValidationResult isValid(CreateUserDto createUserDto) {
+    public ValidationResult validate(CreateUserDto createUserDto) {
         ValidationResult validationResult = new ValidationResult();
 
         if (createUserDto.getName().isBlank()) {

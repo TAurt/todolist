@@ -18,8 +18,8 @@ import static lombok.AccessLevel.PRIVATE;
 public class CreateUserMapper implements Mapper<CreateUserDto, User> {
     private static final CreateUserMapper INSTANCE = new CreateUserMapper();
     private static final String IMAGE_FOLDER = "users";
-    private static final String DEFAULT_MALE_IMAGE = "image.male.default.url";
-    private static final String DEFAULT_FEMALE_IMAGE = "image.female.default.url";
+    private static final String DEFAULT_MALE_IMAGE = PropertiesUtil.get("image.male.default.url");
+    private static final String DEFAULT_FEMALE_IMAGE = PropertiesUtil.get("image.female.default.url");
 
     @Override
     public User mapFrom(CreateUserDto createUserDto) {
@@ -35,8 +35,8 @@ public class CreateUserMapper implements Mapper<CreateUserDto, User> {
                     .image(!createUserDto.getImage().getSubmittedFileName().isEmpty()
                             ? IMAGE_FOLDER + File.separator + createUserDto.getImage().getSubmittedFileName()
                             : Gender.MALE.name().equals(createUserDto.getGender())
-                            ? PropertiesUtil.get(DEFAULT_MALE_IMAGE)
-                            : PropertiesUtil.get(DEFAULT_FEMALE_IMAGE))
+                            ? DEFAULT_MALE_IMAGE
+                            : DEFAULT_FEMALE_IMAGE)
                     .build();
         } catch (Exception e) {
             throw new RuntimeException(e);

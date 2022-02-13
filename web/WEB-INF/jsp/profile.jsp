@@ -15,24 +15,25 @@
     </div>
     <div>
         <form action="${pageContext.request.contextPath}/profile" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="${requestScope.user.id}">
             <div class="input">
                 <label for="name">Name:
-                    <input type="text" name="name" id="name" value="${requestScope.user.name}" >
+                    <input type="text" name="name" id="name" value="${requestScope.user.name}" required>
                 </label>
             </div>
             <div class="input">
                 <label for="email">Email:
-                    <input type="email" name="email" id="email" value="${requestScope.user.email}" >
+                    <input type="email" name="email" id="email" value="${requestScope.user.email}" required>
                 </label>
             </div>
             <div class="input">
                 <label for="password">Password:
-                    <input type="password" name="password" id="password" >
+                    <input type="password" name="password" id="password" placeholder="enter new password or old password" required>
                 </label>
             </div>
             <div class="input">
                 <label for="birthday">Birthday:
-                    <input type="date" name="birthday" id="birthday" value="${requestScope.user.birthday}" >
+                    <input type="date" name="birthday" id="birthday" value="${requestScope.user.birthday}" required>
                 </label>
             </div>
             <div class="input">
@@ -43,8 +44,9 @@
                     </c:forEach>
                 </label>
             </div>
+            <input type="hidden" name="imagepath" value="${requestScope.user.image}">
             <div class="input">
-                <label for="image">New image:
+                <label for="image">New image(The file name must be without spaces and in Latin):
                     <input class="image" type="file" name="image" id="image">
                 </label>
             </div>

@@ -122,7 +122,7 @@ public class TaskDao implements Dao<Long, Task> {
 
     @SneakyThrows
     @Override
-    public void update(Task task) {
+    public int update(Task task) {
         try (var connection = ConnectionPool.get();
              var preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
             preparedStatement.setObject(1, task.getTitle());
@@ -135,6 +135,7 @@ public class TaskDao implements Dao<Long, Task> {
 
             preparedStatement.executeUpdate();
         }
+        return 0;
     }
 
     public static TaskDao getInstance() {

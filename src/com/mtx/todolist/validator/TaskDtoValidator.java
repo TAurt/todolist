@@ -14,7 +14,7 @@ public class TaskDtoValidator implements Validator<TaskDto>{
     private static final TaskDtoValidator INSTANCE = new TaskDtoValidator();
 
     @Override
-    public ValidationResult isValid(TaskDto taskDto) {
+    public ValidationResult validate(TaskDto taskDto) {
         ValidationResult validationResult = new ValidationResult();
 
         if (taskDto.getTitle().isBlank()) {
