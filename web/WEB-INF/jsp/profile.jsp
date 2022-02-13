@@ -4,17 +4,17 @@
 <head>
     <title>EditUser</title>
     <style>
-        <%@include file="/WEB-INF/resources/css/editusers.css" %>
+        <%@include file="/WEB-INF/resources/css/profile.css" %>
     </style>
 </head>
 <body>
 <%@include file="header.jsp" %>
-<div class="edituser">
+<div class="profile">
     <div>
-        <h1>Edit user</h1>
+        <h1>Edit profile</h1>
     </div>
     <div>
-        <form action="${pageContext.request.contextPath}/edituser" method="post" enctype="multipart/form-data">
+        <form action="${pageContext.request.contextPath}/profile" method="post" enctype="multipart/form-data">
             <div class="input">
                 <label for="name">Name:
                     <input type="text" name="name" id="name" value="${requestScope.user.name}" >
@@ -44,8 +44,7 @@
                 </label>
             </div>
             <div class="input">
-                <img class="img" src="${pageContext.request.contextPath}/images/${requestScope.user.image}"  alt="User image">
-                <label for="image">Image:
+                <label for="image">New image:
                     <input class="image" type="file" name="image" id="image">
                 </label>
             </div>

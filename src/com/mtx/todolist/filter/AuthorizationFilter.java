@@ -17,7 +17,7 @@ public class AuthorizationFilter implements Filter {
 
     private static final Set<String> PUBLIC_PATH = Set.of(REGISTRATION, LOGIN, IMAGES);
     private static final Set<String> ADMIN_PATH = Set.of(USERS);
-    private static final Set<String> USER_PATH = Set.of(TASKS, LOGOUT, EDIT_USER);
+    private static final Set<String> USER_PATH = Set.of(TASKS, LOGOUT, PROFILE);
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

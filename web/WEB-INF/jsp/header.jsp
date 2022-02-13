@@ -7,10 +7,13 @@
     <c:if test="${not empty sessionScope.user}">
         <span class="user">Hello, ${sessionScope.user.name}</span>
         <img class="img" src="${pageContext.request.contextPath}/images/${sessionScope.user.image}"  alt="User image">
+        <a class="profile" href="${pageContext.request.contextPath}/profile">
+            <button type="button">Profile</button>
+        </a>
+        <a class="tasks" href="${pageContext.request.contextPath}/tasks">
+            <button type="button">Tasks</button>
+        </a>
         <c:if test="${sessionScope.user.role == 'ADMIN'}">
-            <a class="tasks" href="${pageContext.request.contextPath}/tasks">
-                <button type="button">Tasks</button>
-            </a>
             <a class="users" href="${pageContext.request.contextPath}/users">
                 <button type="button">Users</button>
             </a>

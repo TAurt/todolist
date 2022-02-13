@@ -1,5 +1,6 @@
 package com.mtx.todolist.servlet;
 
+import com.mtx.todolist.dto.UserDto;
 import com.mtx.todolist.entity.Gender;
 import com.mtx.todolist.service.UserService;
 import com.mtx.todolist.util.JspHelper;
@@ -13,18 +14,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(UrlPath.EDIT_USER)
-public class EditUserServlet extends HttpServlet {
+@WebServlet(UrlPath.PROFILE)
+public class ProfileServlet extends HttpServlet {
 
     private final UserService userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var user = (UserDto) req.getSession().getAttribute("user");
         req.setAttribute("genders", List.of(Gender.MALE.name(), Gender.FEMALE.name()));
-        var optionalUserDto = userService.getById(Integer.valueOf(req.getParameter("id")));
+        var optionalUserDto = userService.getById(user.getId());
         optionalUserDto.ifPresentOrElse(userDto -> req.setAttribute("user", userDto),
                 () -> req.setAttribute("errors", "No found such user"));
-        req.getRequestDispatcher(JspHelper.getPath(UrlPath.EDIT_USER)).forward(req, resp);
+        req.getRequestDispatcher(JspHelper.getPath(UrlPath.PROFILE)).forward(req, resp);
     }
 
     @Override

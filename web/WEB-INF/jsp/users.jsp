@@ -39,10 +39,6 @@
                             </a>
                         </c:if>
                     </td>
-
-                    <td><a href="${pageContext.request.contextPath}/edituser?id=${user.id}">
-                        <button type="button">edit</button>
-                    </a></td>
                 </tr>
             </c:forEach>
         </table>
