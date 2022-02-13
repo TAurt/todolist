@@ -21,8 +21,7 @@ public class ImageService {
 
     @SneakyThrows
     public void upload(String imagePath, InputStream imageContent) {
-        var basePath = PropertiesUtil.get(BASE_PATH);
-        var imageFullPath = Path.of(basePath, imagePath);
+        var imageFullPath = Path.of(BASE_PATH, imagePath);
 
         try (imageContent) {
             Files.createDirectories(imageFullPath.getParent());
