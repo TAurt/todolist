@@ -14,3 +14,8 @@
 * PostgreSQL
 * HTML/CSS
 ## App preview
+![Alt text](/screenshots/login.png?raw=true)
+![Alt text](/screenshots/registration.png?raw=true)
+![Alt text](/screenshots/users.png?raw=true)
+![Alt text](/screenshots/tasks.png?raw=true)
+![Alt text](/screenshots/profile.png?raw=true)
